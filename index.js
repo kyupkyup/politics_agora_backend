@@ -1,5 +1,5 @@
 const request = require("request");
-
+// url test 필요
 var url =
   "http://apis.data.go.kr/9760000/ElecPrmsInfoInqireService/getCnddtElecPrmsInfoInqire";
 var queryParams =
