@@ -12,7 +12,7 @@ let serviceKey =
   "6h0Y8RwZFzORaLc37wC3eVg9EUxIkqB0dbKVQREpOh%2BU%2F%2FFV3mz%2BaWLlJMDCjJvKMzOnPeMDUQOdzDyaZM2OhA%3D%3D";
 
 let sgId = "20200415";
-let sgTypecode = "1";
+let sgTypecode = "2";
 
 describe("선거 공약 정보  fetch 를 위한 공약자 id 받기", () => {
   describe("후보자의 코드를 받는다.", () => {
@@ -31,7 +31,7 @@ describe("선거 공약 정보  fetch 를 위한 공약자 id 받기", () => {
             res.body.should.be.instanceof(Object);
             done();
           });
-      });
+      }).timeout(5000);
     });
     describe("실패 시", () => {
       it("url이 잘못되었을 경우", (done) => {

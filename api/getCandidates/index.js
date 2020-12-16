@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const request = require("request");
+const parseXML = require("xml2js").parseString;
 
 /**
  * 후보자
@@ -37,17 +38,14 @@ app.get("/getCandidate", (req, res) => {
   }
 
   var queryParams =
-    "?" + encodeURIComponent("ServiceKey") + serviceKey; /* Service Key*/
+    "?" + encodeURIComponent("serviceKey") + "=" + serviceKey; /* Service Key*/
   queryParams +=
-    "&" +
-    encodeURIComponent("sgId") +
-    "=" +
-    encodeURIComponent("20200415"); /* */
+    "&" + encodeURIComponent("sgId") + "=" + encodeURIComponent(sgId); /* */
   queryParams +=
     "&" +
     encodeURIComponent("sgTypecode") +
     "=" +
-    encodeURIComponent("1"); /* */
+    encodeURIComponent(sgTypecode); /* */
 
   request(
     {
@@ -58,9 +56,11 @@ app.get("/getCandidate", (req, res) => {
       //console.log('Status', response.statusCode);
       //console.log('Headers', JSON.stringify(response.headers));
       //console.log('Reponse received', body);
-      console.log(body);
       res.status(200);
-      res.json(body);
+      parseXML(body, (err, result) => {
+        console.log(result.response.body);
+        res.json(result);
+      });
     }
   );
 });
