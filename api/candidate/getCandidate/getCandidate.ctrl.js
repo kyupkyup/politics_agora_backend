@@ -1,26 +1,18 @@
-const express = require("express");
-const app = express();
 const request = require("request");
 const parseXML = require("xml2js").parseString;
 
-/**
- * 후보자
- * 예비 후보자
- *  key 값 구하는 모듈
- */
-
-app.get("/getCandidate", (req, res) => {
+const getCandidate = (req, res) => {
   let url = req.query.url;
   let serviceKey = req.query.serviceKey;
   let sgId = req.query.sgId;
   let sgTypecode = req.query.sgTypecode;
-  const test_sgTypeCode = parseInt(sgTypecode, 10);
+  let candidateId = req.query.candidateId; // 문재인
 
-  // 테스트 코드 처리
-  // 선거자
+  const test_sgTypeCode = parseInt(sgTypecode, 10);
+  // 테스트 처리 코드부
   if (
     url !==
-    "http://apis.data.go.kr/9760000/PofelcddInfoInqireService/getPofelcddRegistSttusInfoInqire"
+    "http://apis.data.go.kr/9760000/ElecPrmsInfoInqireService/getCnddtElecPrmsInfoInqire"
   ) {
     return res.status(400).end();
   }
@@ -33,12 +25,22 @@ app.get("/getCandidate", (req, res) => {
   if (Number.isNaN(parseInt(sgId, 10))) {
     return res.status(402).end();
   }
+
   if (test_sgTypeCode < 0 || test_sgTypeCode > 10) {
     return res.status(403).end();
   }
-
-  var queryParams =
+  if (Number.isNaN(parseInt(candidateId, 10))) {
+    return res.status(404).end();
+  }
+  let queryParams =
     "?" + encodeURIComponent("serviceKey") + "=" + serviceKey; /* Service Key*/
+  queryParams +=
+    "&" + encodeURIComponent("pageNo") + "=" + encodeURIComponent("1"); /* */
+  queryParams +=
+    "&" +
+    encodeURIComponent("numOfRows") +
+    "=" +
+    encodeURIComponent("10"); /* */
   queryParams +=
     "&" + encodeURIComponent("sgId") + "=" + encodeURIComponent(sgId); /* */
   queryParams +=
@@ -46,6 +48,11 @@ app.get("/getCandidate", (req, res) => {
     encodeURIComponent("sgTypecode") +
     "=" +
     encodeURIComponent(sgTypecode); /* */
+  queryParams +=
+    "&" +
+    encodeURIComponent("cnddtId") +
+    "=" +
+    encodeURIComponent(candidateId); /* */
 
   request(
     {
@@ -53,9 +60,6 @@ app.get("/getCandidate", (req, res) => {
       method: "GET",
     },
     function (error, response, body) {
-      //console.log('Status', response.statusCode);
-      //console.log('Headers', JSON.stringify(response.headers));
-      //console.log('Reponse received', body);
       res.status(200);
       parseXML(body, (err, result) => {
         console.log(result.response.body);
@@ -63,9 +67,6 @@ app.get("/getCandidate", (req, res) => {
       });
     }
   );
-});
+};
 
-app.listen(3000, () => {
-  console.log("local");
-});
-module.exports = app;
+module.exports = { getCandidate: getCandidate };

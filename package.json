@@ -4,8 +4,8 @@
   "description": "politics rest api version",
   "main": "index.js",
   "scripts": {
-    "test": "mocha index.spec.js",
-    "testCandi": "mocha candidate/index.spec.js"
+    "test": "mocha api/candidate/getCandidate/getCandidate.spec.js",
+    "testCandi": "mocha api/candidate/getCandidates/getCandidates.spec.js"
   },
   "author": "",
   "license": "ISC",
