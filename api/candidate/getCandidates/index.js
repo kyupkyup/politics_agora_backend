@@ -5,3 +5,5 @@ const controller = require("./getCandidates.ctrl");
 router.get("/", controller.getCandidates);
 
 module.exports = router;
+//TODO
+// user api 구성
