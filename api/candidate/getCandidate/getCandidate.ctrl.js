@@ -1,5 +1,6 @@
 const request = require("request");
 const parseXML = require("xml2js").parseString;
+const JsonParser = require("../../../parser/JsonParser");
 
 const getCandidate = (req, res) => {
   let url = req.query.url;
@@ -62,8 +63,7 @@ const getCandidate = (req, res) => {
     function (error, response, body) {
       res.status(200);
       parseXML(body, (err, result) => {
-        console.log(result.response.body);
-        res.json(result);
+        res.json(JsonParser(result.response.body));
       });
     }
   );

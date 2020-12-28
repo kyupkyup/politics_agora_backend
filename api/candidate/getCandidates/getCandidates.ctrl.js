@@ -1,6 +1,6 @@
 const request = require("request");
 const parseXML = require("xml2js").parseString;
-
+const JsonParser = require("../../../parser/JsonParser");
 /**
  * 후보자
  * 예비 후보자
@@ -53,7 +53,7 @@ const getCandidates = (req, res) => {
     function (error, response, body) {
       res.status(200);
       parseXML(body, (err, result) => {
-        res.json(result);
+        res.json(JsonParser(result.response.body));
       });
       // items 리스트 앱 쪽으로 보내줌
       //
