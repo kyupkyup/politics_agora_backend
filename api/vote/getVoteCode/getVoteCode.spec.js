@@ -13,12 +13,9 @@ describe("선거 코드 모두 받아오기", () => {
     it("결과물을 반환한다.", (done) => {
       request(app)
         .get("/getVoteCode")
-        .query({
-          url: url_get_vote_code,
-          serviceKey: serviceKey,
-        })
         .expect(200)
         .end((err, res) => {
+          console.log(res.body);
           res.body.should.be.instanceOf(Object);
           done();
         });
@@ -28,10 +25,6 @@ describe("선거 코드 모두 받아오기", () => {
     it("url이 잘 못 되었을 경우", (done) => {
       request(app)
         .get("/getVoteCode")
-        .query({
-          url: "http://asdf",
-          serviceKey: serviceKey,
-        })
         .expect(400)
         .end((err, res) => {
           res.body.should.be.instanceOf(Object);
@@ -41,10 +34,6 @@ describe("선거 코드 모두 받아오기", () => {
     it("serviceKey가 잘 못 되었을 경우", (done) => {
       request(app)
         .get("/getVoteCode")
-        .query({
-          url: url_get_vote_code,
-          serviceKey: "asdf",
-        })
         .expect(401)
         .end((err, res) => {
           res.body.should.be.instanceOf(Object);

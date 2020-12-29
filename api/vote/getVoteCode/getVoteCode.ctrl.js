@@ -1,10 +1,16 @@
 const request = require("request");
-const parseXML = require("xml2js").parseString;
+var parser = require("fast-xml-parser");
+
 const JsonParser = require("../../../parser/JsonParser");
 
+let url_get_vote_code =
+  "http://apis.data.go.kr/9760000/CommonCodeService/getCommonSgCodeList";
+
+let serviceKey =
+  "6h0Y8RwZFzORaLc37wC3eVg9EUxIkqB0dbKVQREpOh%2BU%2F%2FFV3mz%2BaWLlJMDCjJvKMzOnPeMDUQOdzDyaZM2OhA%3D%3D";
+
 const getVoteCode = (req, res) => {
-  let url = req.query.url;
-  let serviceKey = req.query.serviceKey;
+  let url = url_get_vote_code;
 
   if (
     url !==
@@ -29,9 +35,8 @@ const getVoteCode = (req, res) => {
     },
     function (error, response, body) {
       res.status(200);
-      parseXML(body, (err, result) => {
-        res.json(JsonParser(result.response.body));
-      });
+      let temp = parser.parse(body);
+      res.json(JsonParser(temp.response.body));
     }
   );
 };

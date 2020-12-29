@@ -28,6 +28,7 @@ describe("선거 공약 정보  fetch 를 위한 공약자 id 받기", () => {
           })
           .expect(200)
           .end((err, res) => {
+            console.log(res.body);
             res.body.should.be.instanceof(Object);
             done();
           });

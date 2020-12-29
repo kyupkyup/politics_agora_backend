@@ -21,8 +21,6 @@ describe("선거공약 정보 open api http://apis.data.go.kr/9760000/ElecPrmsIn
       request(app)
         .get("/getCandidate")
         .query({
-          url: url,
-          serviceKey: serviceKey,
           sgId: sgId,
           sgTypecode: sgTypecode,
           candidateId: candidateId,
@@ -35,42 +33,10 @@ describe("선거공약 정보 open api http://apis.data.go.kr/9760000/ElecPrmsIn
     }).timeout(20000);
   });
   describe("실패 시", () => {
-    it("url 이 잘못되었을 경우", (done) => {
-      request(app)
-        .get("/getCandidate")
-        .query({
-          url: "http://apis.data.go.kr/9760000/",
-          serviceKey: serviceKey,
-          sgId: sgId,
-          sgTypecode: sgTypecode,
-          candidateId: candidateId,
-        })
-        .expect(400)
-        .end((err, res) => {
-          done();
-        });
-    });
-    it("serviceKey가 잘못 된 경우", (done) => {
-      request(app)
-        .get("/getCandidate")
-        .query({
-          url: url,
-          serviceKey: "adsf",
-          sgId: sgId,
-          sgTypecode: sgTypecode,
-          candidateId: candidateId,
-        })
-        .expect(401)
-        .end((err, res) => {
-          done();
-        });
-    });
     it("선거코드가 정수가 아닌경우", (done) => {
       request(app)
         .get("/getCandidate")
         .query({
-          url: url,
-          serviceKey: serviceKey,
           sgId: "asdf",
           sgTypecode: sgTypecode,
           candidateId: candidateId,
@@ -84,8 +50,6 @@ describe("선거공약 정보 open api http://apis.data.go.kr/9760000/ElecPrmsIn
       request(app)
         .get("/getCandidate")
         .query({
-          url: url,
-          serviceKey: serviceKey,
           sgId: sgId,
           sgTypecode: "-1",
           candidateId: candidateId,
@@ -99,8 +63,6 @@ describe("선거공약 정보 open api http://apis.data.go.kr/9760000/ElecPrmsIn
       request(app)
         .get("/getCandidate")
         .query({
-          url: url,
-          serviceKey: serviceKey,
           sgId: sgId,
           sgTypecode: sgTypecode,
           candidateId: "asdf",

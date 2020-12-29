@@ -1,15 +1,19 @@
 const request = require("request");
-const parseXML = require("xml2js").parseString;
+var parser = require("fast-xml-parser");
 const JsonParser = require("../../../parser/JsonParser");
 /**
  * 후보자
  * 예비 후보자
  *  key 값 구하는 모듈
  */
+let url_get_vote_code =
+  "http://apis.data.go.kr/9760000/PofelcddInfoInqireService/getPofelcddRegistSttusInfoInqire";
+
+let serviceKey =
+  "6h0Y8RwZFzORaLc37wC3eVg9EUxIkqB0dbKVQREpOh%2BU%2F%2FFV3mz%2BaWLlJMDCjJvKMzOnPeMDUQOdzDyaZM2OhA%3D%3D";
 
 const getCandidates = (req, res) => {
-  let url = req.query.url;
-  let serviceKey = req.query.serviceKey;
+  let url = url_get_vote_code;
   let sgId = req.query.sgId;
   let sgTypecode = req.query.sgTypecode;
   const test_sgTypeCode = parseInt(sgTypecode, 10);
@@ -52,9 +56,8 @@ const getCandidates = (req, res) => {
     },
     function (error, response, body) {
       res.status(200);
-      parseXML(body, (err, result) => {
-        res.json(JsonParser(result.response.body));
-      });
+      let temp = parser.parse(body);
+      res.json(JsonParser(temp.response.body));
       // items 리스트 앱 쪽으로 보내줌
       //
     }
