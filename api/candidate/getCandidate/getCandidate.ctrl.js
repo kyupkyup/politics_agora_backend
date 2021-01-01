@@ -13,7 +13,7 @@ const getCandidate = (req, res) => {
   let sgId = req.query.sgId;
   let sgTypecode = req.query.sgTypecode;
   let candidateId = req.query.candidateId; // 문재인
-
+  console.log(req.query.candidateId + "");
   const test_sgTypeCode = parseInt(sgTypecode, 10);
   // 테스트 처리 코드부
   if (
@@ -68,7 +68,7 @@ const getCandidate = (req, res) => {
     function (error, response, body) {
       res.status(200);
       let temp = parser.parse(body);
-      res.json(JsonParser(temp.response.body));
+      res.json(JsonParser.JsonCandidateParser(temp.response.body));
     }
   );
 };

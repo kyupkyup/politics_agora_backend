@@ -72,5 +72,6 @@ describe("선거공약 정보 open api http://apis.data.go.kr/9760000/ElecPrmsIn
           done();
         });
     });
+    it("결과물이 없는 경우");
   });
 });

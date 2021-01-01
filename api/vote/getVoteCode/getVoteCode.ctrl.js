@@ -1,6 +1,5 @@
 const request = require("request");
 var parser = require("fast-xml-parser");
-
 const JsonParser = require("../../../parser/JsonParser");
 
 let url_get_vote_code =
@@ -27,7 +26,11 @@ const getVoteCode = (req, res) => {
 
   let queryParams =
     "?" + encodeURIComponent("serviceKey") + "=" + serviceKey; /* Service Key*/
-
+  queryParams +=
+    "&" +
+    encodeURIComponent("numOfRows") +
+    "=" +
+    encodeURIComponent("50"); /* */
   request(
     {
       url: url + queryParams,
@@ -36,7 +39,7 @@ const getVoteCode = (req, res) => {
     function (error, response, body) {
       res.status(200);
       let temp = parser.parse(body);
-      res.json(JsonParser(temp.response.body));
+      res.json(JsonParser.JsonParser(temp.response.body));
     }
   );
 };

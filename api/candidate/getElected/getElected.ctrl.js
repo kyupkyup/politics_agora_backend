@@ -6,14 +6,14 @@ const JsonParser = require("../../../parser/JsonParser");
  * 예비 후보자
  *  key 값 구하는 모듈
  */
-let url_get_vote_code =
-  "http://apis.data.go.kr/9760000/PofelcddInfoInqireService/getPofelcddRegistSttusInfoInqire";
+let url_get_elected =
+  "http://apis.data.go.kr/9760000/WinnerInfoInqireService2/getWinnerInfoInqire";
 
 let serviceKey =
   "6h0Y8RwZFzORaLc37wC3eVg9EUxIkqB0dbKVQREpOh%2BU%2F%2FFV3mz%2BaWLlJMDCjJvKMzOnPeMDUQOdzDyaZM2OhA%3D%3D";
 
-const getCandidates = (req, res) => {
-  let url = url_get_vote_code;
+const getElected = (req, res) => {
+  let url = url_get_elected;
   let sgId = req.query.sgId;
   let sgTypecode = req.query.sgTypecode;
   const test_sgTypeCode = parseInt(sgTypecode, 10);
@@ -21,7 +21,7 @@ const getCandidates = (req, res) => {
   // 선거자
   if (
     url !==
-    "http://apis.data.go.kr/9760000/PofelcddInfoInqireService/getPofelcddRegistSttusInfoInqire"
+    "http://apis.data.go.kr/9760000/WinnerInfoInqireService2/getWinnerInfoInqire"
   ) {
     return res.status(400).end();
   }
@@ -59,13 +59,17 @@ const getCandidates = (req, res) => {
       method: "GET",
     },
     function (error, response, body) {
-      res.status(200);
       let temp = parser.parse(body);
-      res.json(JsonParser.JsonParser(temp.response.body));
+      if (temp.response.body === undefined) {
+        res.status(450).end();
+      } else {
+        res.json(JsonParser.JsonParser(temp.response.body));
+        res.status(200);
+      }
       // items 리스트 앱 쪽으로 보내줌
       //
     }
   );
 };
 
-module.exports = { getCandidates: getCandidates };
+module.exports = { getElected: getElected };

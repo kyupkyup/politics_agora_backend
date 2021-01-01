@@ -28,12 +28,12 @@ describe("선거 공약 정보  fetch 를 위한 공약자 id 받기", () => {
           })
           .expect(200)
           .end((err, res) => {
-            console.log(res.body);
             res.body.should.be.instanceof(Object);
             done();
           });
       }).timeout(5000);
     });
+
     describe("실패 시", () => {
       it("url이 잘못되었을 경우", (done) => {
         request(app)
@@ -72,7 +72,7 @@ describe("선거 공약 정보  fetch 를 위한 공약자 id 받기", () => {
             sgId: "asdf",
             sgTypecode: sgTypecode,
           })
-          .expect(402)
+          .expect(420)
           .end((err, res) => {
             done();
           });
@@ -86,7 +86,7 @@ describe("선거 공약 정보  fetch 를 위한 공약자 id 받기", () => {
             sgId: sgId,
             sgTypecode: "-1",
           })
-          .expect(403)
+          .expect(430)
           .end((err, res) => {
             done();
           });

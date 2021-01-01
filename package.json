@@ -6,7 +6,8 @@
   "scripts": {
     "test": "mocha api/candidate/getCandidate/getCandidate.spec.js",
     "testCandi": "mocha api/candidate/getCandidates/getCandidates.spec.js",
-    "testVoteCode": "mocha api/vote/getVoteCode/getVoteCode.spec.js"
+    "testVoteCode": "mocha api/vote/getVoteCode/getVoteCode.spec.js",
+    "testElected" : "mocha api/candidate/getElected/getElected.spec.js"
   },
   "author": "",
   "license": "ISC",
@@ -20,6 +21,8 @@
     "express": "^4.17.1",
     "fast-xml-parser": "^3.17.6",
     "request": "^2.88.2",
+    "sequelize": "^6.3.5",
+    "sqlite3": "^5.0.0",
     "xml2js": "^0.4.23"
   }
 }

@@ -1,7 +1,15 @@
 const JsonParser = (body) => {
   const items = body.items;
+  console.log(items);
 
   return items;
 };
 
-module.exports = JsonParser;
+const JsonCandidateParser = (body) => {
+  const items = [body.items.item];
+  return { item: items };
+};
+module.exports = {
+  JsonParser: JsonParser,
+  JsonCandidateParser: JsonCandidateParser,
+};

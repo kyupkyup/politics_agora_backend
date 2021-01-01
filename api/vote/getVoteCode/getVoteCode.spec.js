@@ -15,7 +15,6 @@ describe("선거 코드 모두 받아오기", () => {
         .get("/getVoteCode")
         .expect(200)
         .end((err, res) => {
-          console.log(res.body);
           res.body.should.be.instanceOf(Object);
           done();
         });
@@ -27,7 +26,6 @@ describe("선거 코드 모두 받아오기", () => {
         .get("/getVoteCode")
         .expect(400)
         .end((err, res) => {
-          res.body.should.be.instanceOf(Object);
           done();
         });
     });
@@ -36,7 +34,6 @@ describe("선거 코드 모두 받아오기", () => {
         .get("/getVoteCode")
         .expect(401)
         .end((err, res) => {
-          res.body.should.be.instanceOf(Object);
           done();
         });
     });
