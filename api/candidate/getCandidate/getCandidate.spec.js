@@ -72,6 +72,18 @@ describe("선거공약 정보 open api http://apis.data.go.kr/9760000/ElecPrmsIn
           done();
         });
     });
-    it("결과물이 없는 경우");
+    it("결과물이 없는 경우", (done) => {
+      request(app)
+        .get("/getCandidate")
+        .query({
+          sgId: "20200415",
+          sgTypecode: "2",
+          candidateId: "10013775000",
+        })
+        .expect(450)
+        .end((err, res) => {
+          done();
+        });
+    }).timeout(20000);
   });
 });

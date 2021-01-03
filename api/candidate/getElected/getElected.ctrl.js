@@ -60,11 +60,12 @@ const getElected = (req, res) => {
     },
     function (error, response, body) {
       let temp = parser.parse(body);
-      if (temp.response.body === undefined) {
-        res.status(450).end();
-      } else {
+
+      if ("response" in temp) {
         res.json(JsonParser.JsonParser(temp.response.body));
         res.status(200);
+      } else {
+        res.status(450).end();
       }
       // items 리스트 앱 쪽으로 보내줌
       //

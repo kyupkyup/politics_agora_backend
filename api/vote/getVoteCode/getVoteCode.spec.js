@@ -37,5 +37,13 @@ describe("선거 코드 모두 받아오기", () => {
           done();
         });
     });
+    it("return이 아무것도 없을 경우", (done) => {
+      request(app)
+        .get("/getVoteCode")
+        .expect(450)
+        .end((err, res) => {
+          done();
+        });
+    });
   });
 });

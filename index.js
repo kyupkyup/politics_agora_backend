@@ -14,7 +14,7 @@ app.use("/getCandidate", getCandidate);
 app.use("/getVoteCode", getVoteCode);
 app.use("/getElected", getElected);
 
-app.listen(3000, () => {
+app.listen(3306, () => {
   console.log("local");
 });
 module.exports = app;

@@ -1,6 +1,5 @@
 const JsonParser = (body) => {
   const items = body.items;
-  console.log(items);
 
   return items;
 };

@@ -91,12 +91,11 @@ describe("선거 코드 모두 받아오기", () => {
         .query({
           url: url_get_elected,
           serviceKey: serviceKey,
-          sgId: sgId,
-          sgTypecode: sgTypecode,
+          sgId: "12",
+          sgTypecode: "20220202",
         })
         .expect(450)
         .end((err, res) => {
-          res.body.should.be.undefined;
           done();
         });
     });

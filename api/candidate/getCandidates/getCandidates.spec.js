@@ -91,6 +91,21 @@ describe("선거 공약 정보  fetch 를 위한 공약자 id 받기", () => {
             done();
           });
       });
+      it("return이 아무것도 없을 경우", (done) => {
+        request(app)
+          .get("/getCandidates")
+          .query({
+            url: url_get_candidate,
+            serviceKey: serviceKey,
+            sgId: "12",
+            sgTypecode: "20220202",
+          })
+          .expect(450)
+          .end((err, res) => {
+            console.log(res);
+            done();
+          });
+      });
     });
   });
 });

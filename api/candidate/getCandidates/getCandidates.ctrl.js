@@ -59,10 +59,15 @@ const getCandidates = (req, res) => {
       method: "GET",
     },
     function (error, response, body) {
-      res.status(200);
       let temp = parser.parse(body);
-      res.json(JsonParser.JsonParser(temp.response.body));
-      // items 리스트 앱 쪽으로 보내줌
+      if ("response" in temp) {
+        console.log(temp);
+
+        res.json(JsonParser.JsonParser(temp.response.body));
+        res.status(200);
+      } else {
+        res.status(450).end();
+      } // items 리스트 앱 쪽으로 보내줌
       //
     }
   );
